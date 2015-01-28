@@ -1,0 +1,128 @@
+using System;
+using System.Collections.Generic;
+//"CAaaaaXY", "CAabbbXY", "CAaaabXY", "CAaabbXY", "CAababXY" and "CAabbaXY
+class Program
+{
+    static void Main()
+    {
+        int weight = int.Parse(Console.ReadLine());
+        char[] strletters = new char[] { 'A', 'B', 'C', 'E', 'H', 'K', 'M', 'P', 'T', 'X' };
+        List<string> returnList = new List<string>();
+        int count = 0;
+        for (int a = 0; a <= 9; a++)
+        //for (int a = 8; a <= 9;a++ )
+        {
+            string str1 = "" + a + a + a + a;
+            count = count + ReturnIfMagicNumber(weight, str1, strletters);
+            for (int b = 0; b <= 9; b++)
+            //for (int b = 8; b <= 9; b++)
+            {
+
+                if (a != b)
+                {
+                    string str2 = "" + a + b + b + b;
+                    string str3 = "" + a + a + a + b;
+                    string str4 = "" + a + a + b + b;
+                    string str5 = "" + a + b + a + b;
+                    string str6 = "" + a + b + b + a;
+                    count = count + ReturnIfMagicNumber(weight, str2, strletters) + ReturnIfMagicNumber(weight, str3, strletters) + ReturnIfMagicNumber(weight, str4, strletters) + ReturnIfMagicNumber(weight, str5, strletters) + ReturnIfMagicNumber(weight, str6, strletters);
+
+
+
+                }
+
+            }
+        }
+        Console.WriteLine(count);
+    }
+
+    static int ReturnIfMagicNumber(int weight, string str1, char[] strletters)
+    {
+        int weightletter = 0;
+        int count = 0;
+        foreach (var item in str1)
+        {
+            int val = (int)Char.GetNumericValue(item);
+            weightletter = weightletter + val;
+        }
+
+        weightletter = weightletter + 40;
+        if (weight > weightletter)
+        {
+            int rest = weight - weightletter;
+            foreach (var l1 in strletters)
+            {
+                foreach (var l2 in strletters)
+                {
+                    int l12 = getweight(l1) + getweight(l2);
+                    if (l12 == rest)
+                    {
+                        // string toType = "AC" + str1 + l1 + l2;
+                        //Console.WriteLine(toType);
+
+                        count++;
+                    }
+
+                }
+            }
+        }
+        return count;
+
+
+    }
+    static int getweight(char letter)
+    {
+        int weightletter;
+        if (letter == 'A')
+        {
+            weightletter = 10;
+        }
+        else if (letter == 'B')
+        {
+            weightletter = 20;
+        }
+        else if (letter == 'C')
+        {
+            weightletter = 30;
+        }
+        else if (letter == 'E')
+        {
+            weightletter = 50;
+        }
+        else if (letter == 'H')
+        {
+            weightletter = 80;
+        }
+        else if (letter == 'K')
+        {
+            weightletter = 110;
+        }
+        else if (letter == 'M')
+        {
+            weightletter = 130;
+        }
+        else if (letter == 'P')
+        {
+            weightletter = 160;
+        }
+        else if (letter == 'T')
+        {
+            weightletter = 200;
+        }
+        else if (letter == 'X')
+        {
+            weightletter = 240;
+        }
+        else
+        {
+            weightletter = 0;
+        }
+
+
+        return weightletter;
+
+    }
+
+}
+
+
