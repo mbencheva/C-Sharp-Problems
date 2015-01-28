@@ -1,0 +1,83 @@
+using System;
+using System.Collections.Generic;
+
+class WinningNumbers
+{
+    static void Main()
+    {
+        string inputStr = Console.ReadLine();
+        int sum = CalcSum(inputStr);
+        bool exist = false;
+        List<int> listEl = new List<int>();
+        //Console.WriteLine(sum);
+
+
+        for (int i = 111; i <= 999; i++)
+        {
+            int product = 1;
+            string stringI = Convert.ToString(i);
+            foreach (var item in stringI)
+            {
+                int item1 = (int)Char.GetNumericValue(item);
+                product = product * item1;
+            }
+            if (product == sum)
+            {
+                listEl.Add(i);
+                exist = true;
+            }
+        }
+        foreach (var item in listEl)
+        {
+            foreach (var item1 in listEl)
+            {
+                Console.WriteLine(item +"-" +item1);
+            } 
+        }
+        if (exist == false)
+        {
+            Console.WriteLine("No"); 
+        }
+    }
+    static int CalcSum(string inputStr)
+    {
+        int sum = 0;
+        foreach (var item in inputStr)
+        {
+            if (item>=97)
+            {
+                int count = 0;
+                int val = 'a';
+                for (int i = val; i <= val + 26; i++)
+                {
+                    count = count + 1;
+                    if (item == i)
+                    {
+                        sum = sum + count;
+
+                    }
+                } 
+            }
+            else
+            {
+                int count = 0;
+                int val = 'A';
+                for (int i = val; i <= val + 26; i++)
+                {
+                    count = count + 1;
+                    if (item == i)
+                    {
+                        sum = sum + count;
+
+                    }
+                } 
+            }
+            
+            
+            
+            
+        }
+        return sum;
+    }
+}
+
