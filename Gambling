@@ -1,0 +1,149 @@
+using System;
+using System.Collections.Generic;
+
+class Gambling
+{
+    static void Main()
+    {
+        double cash = 100;
+        string houseHand = "A A K 3";
+        string[] houseHandArr = houseHand.Split(' ');
+        string[] houseHandArrPH = new string[4];
+        int valHouseHand = CalcStrenght(houseHandArr);
+        int count = 0;
+        int countTotal = 0;
+        //sort
+        int handStrenght = CalcStrenght(houseHandArr);
+        string[] listCards = {"2","3","4","5","6","7","8", "9","10","J", "Q","K", "A",
+                             "2","3","4","5","6","7","8", "9","10","J", "Q","K", "A",
+                             "2","3","4","5","6","7","8", "9","10","J", "Q","K", "A",
+                             "2","3","4","5","6","7","8", "9","10","J", "Q","K", "A"};
+
+        int lenght = listCards.Length;
+
+        for (int a = 0; a < lenght; a++)
+        {
+            for (int b = a + 1; b < lenght; b++)
+            {
+                for (int c = b + 1; c < lenght; c++)
+                {
+                    for (int d = c + 1; d < lenght; d++)
+                    {
+                        //string possibleHand = listCards[a]+" "+listCards[b]+" "+listCards[c]+" "+listCards[d];
+                        houseHandArrPH[0] = listCards[a];
+                        houseHandArrPH[1] = listCards[b];
+                        houseHandArrPH[2] = listCards[c];
+                        houseHandArrPH[3] = listCards[d];
+                        countTotal++;
+                        //Console.WriteLine(houseHandArrPH[0] + houseHandArrPH[1] + houseHandArrPH[2] + houseHandArrPH[3]);
+                        //bool ifTrue  = arrays(houseHandArrPH, houseHandArr);
+                        //if (ifTrue==false)
+                        int valHouseHandPH = CalcStrenght(houseHandArrPH);
+                        if (valHouseHandPH > valHouseHand)
+                        {
+                            count++;
+                        }
+
+                    }
+                }
+            }
+
+        }
+        Console.WriteLine(count + " " + countTotal);
+
+    }
+    static int CalcStrenght(string[] houseHandArr)
+    {
+        int sum = 0;
+        foreach (var item in houseHandArr)
+        {
+            int sumEl = getVal(item);
+            sum = sum + sumEl;
+        }
+        return sum;
+    }
+    static int getVal(string item)
+    {
+        if (item == "2")
+        {
+            return 2;
+        }
+        else if (item == "3")
+        {
+            return 3;
+        }
+        else if (item == "4")
+        {
+            return 4;
+        }
+        else if (item == "5")
+        {
+            return 5;
+        }
+        else if (item == "6")
+        {
+            return 6;
+        }
+        else if (item == "7")
+        {
+            return 7;
+        }
+        else if (item == "8")
+        {
+            return 8;
+        }
+        else if (item == "9")
+        {
+            return 9;
+        }
+        else if (item == "10")
+        {
+            return 10;
+        }
+        else if (item == "J")
+        {
+            return 11;
+        }
+        else if (item == "Q")
+        {
+            return 12;
+        }
+        else if (item == "K")
+        {
+            return 13;
+        }
+        else if (item == "A")
+        {
+            return 14;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    static bool arrays(string[] houseHandArrPH, string[] houseHandArr)
+    {
+        bool returnVal = false;
+        List<string> check = new List<string>();
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                if (houseHandArrPH[i] == houseHandArr[j])
+                {
+                    check.Add(houseHandArrPH[i]);
+
+                }
+            }
+        }
+        int size = check.Count;
+        if (size == 4)
+        {
+            returnVal = true;
+        }
+        return returnVal;
+    }
+    //static int CheckIfWinningHand();
+
+}
+
